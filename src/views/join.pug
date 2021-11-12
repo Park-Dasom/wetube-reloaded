@@ -1,18 +1,19 @@
 extends base
 
 block content 
+    h1=pageTitle
     if errorMessage 
         span=errorMessage 
     form(method="POST")
-        input(placeholder="Name", name="name", type="text", required)
-        input(placeholder="Email", name="email", type="email", required)
-        input(placeholder="Username", name="username", type="text", required)
-        input(placeholder="Password", name="password", type="password", required)
-        input(placeholder="Password confirm", name="password2", type="password", required)
-        input(placeholder="Location", name="location", type="text")
-        input(type="submit", value="Join")
-
+        input(placeholder="Name", name="name", type="text", required, class="submit_input")
+        input(placeholder="Email", name="email", type="email", required, class="submit_input")
+        input(placeholder="Username", name="username", type="text", required, class="submit_input")
+        input(placeholder="Password", name="password", type="password", required, class="submit_input")
+        input(placeholder="Password confirm", name="password2", type="password", required, class="submit_input")
+        input(placeholder="Location", name="location", type="text", class="submit_input")
+        input(type="submit", value="Join", class="input_btn")
+        include partials/social-login
     hr
-    div 
+    div.under_hr
         span Already have an account?  
         a(href="/login") Login now &rarr;

@@ -1,0 +1,13 @@
+.home_video {
+  margin-top: 100px;
+
+  display: grid;
+  gap: 35px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.empty_message {
+  text-align: center;
+  font-size: 23px;
+  margin-bottom: 50px;
+}

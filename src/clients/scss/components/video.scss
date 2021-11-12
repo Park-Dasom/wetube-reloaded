@@ -1,0 +1,20 @@
+.video_grid {
+  .video_grid_thumb {
+    height: 140px;
+    width: 100%;
+    border-radius: 10px;
+    background-color: blanchedalmond;
+  }
+  .video_grid_data {
+    padding: 0px 15px;
+    .video_grid_title {
+      font-size: 18px;
+      display: block;
+      margin-top: 10px;
+    }
+    .video_grid_meta {
+      margin-top: 5px;
+      font-size: 12px;
+    }
+  }
+}
