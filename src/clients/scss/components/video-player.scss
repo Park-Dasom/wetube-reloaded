@@ -1,0 +1,50 @@
+#videoContainer {
+  position: relative;
+  .hidden {
+    display: none;
+  }
+  .showing {
+    display: flex;
+    position: absolute;
+    left: 40px;
+    bottom: 20px;
+    align-items: center;
+    background-color: rgba(83, 83, 83);
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+  }
+
+  #play,
+  #mute {
+    width: 18px;
+    height: 18px;
+    margin: 0px 15px;
+    cursor: pointer;
+  }
+
+  #timeline {
+    all: unset;
+    width: 800px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+  }
+
+  #volume {
+    all: unset;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+  }
+
+  #timeControls {
+    width: 150px;
+    margin-left: 15px;
+    cursor: pointer;
+  }
+  #fullscreen {
+    margin: 0px 20px;
+    cursor: pointer;
+  }
+}

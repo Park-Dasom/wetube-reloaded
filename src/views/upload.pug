@@ -2,6 +2,8 @@ extends base.pug
 
 block content
     h1=pageTitle
+    video#preview
+    button#startBtn Start Recording
     if errorMessage 
         span=errorMessage
     form(method="POST", enctype="multipart/form-data", class="submit_input").edit-profile_form
@@ -11,3 +13,5 @@ block content
         input(placeholder="Descripton", required, type="text", name="description", minlength=20, class="submit_input")
         input(placeholder="Hashtags, separated by comma.", required, type="text", name="hashtags", class="submit_input")
         input(type="submit", value="Upload Video", class="input_btn")
+    block scripts 
+        script(src="/static/js/recorder.js")
