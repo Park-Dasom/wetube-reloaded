@@ -17,6 +17,8 @@
   "homepage": "https://github.com/Park-Dasom/wetube-reloaded#readme",
   "dependencies": {
     "@babel/preset-env": "^7.15.0",
+    "@ffmpeg/core": "^0.10.0",
+    "@ffmpeg/ffmpeg": "^0.10.1",
     "acorn-import-assertions": "^1.8.0",
     "bcrypt": "^5.0.1",
     "connect-mongo": "^4.6.0",
