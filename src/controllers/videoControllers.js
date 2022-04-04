@@ -1,5 +1,5 @@
-import Video from "../models/Video";
-import User from "../models/User";
+import Video from "../models/Video.js";
+import User from "../models/User.js";
 
 export const home = async (req, res) => {
   const videos = await Video.find({})
@@ -62,26 +62,22 @@ export const postUpload = async (req, res) => {
   const { _id } = req.session.user;
   const { video, thumb } = req.files;
   const { title, description, hashtags } = req.body;
+  console.log(video, thumb);
   try {
     const newVideo = await Video.create({
-      title: title,
-      description: description,
-      createdAt: Date.now(),
+      title,
+      description,
       fileUrl: video[0].path,
-      thumbUrl: thumb[0].path,
+      thumbnailUrl: thumb[0].path.replace(/[\\]/g, "/"),
       owner: _id,
       hashtags: Video.formatHashtags(hashtags),
-      meta: {
-        views: 0,
-        rating: 0,
-      },
     });
     const user = await User.findById(_id);
     user.videos.push(newVideo._id);
     user.save();
     return res.redirect("/");
   } catch (error) {
-    console.log(req.session);
+    console.log(error);
     return res.status(400).render("upload", {
       pageTitle: "Upload Video",
       errorMessage: error._message,
