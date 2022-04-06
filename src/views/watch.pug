@@ -18,6 +18,11 @@ block content
           span#totalTime 00:00
         div 
           i#fullscreen.fas.fa-expand
+    if loggedIn
+      div.video__comments
+        form.video__comment-form#commentForm 
+          textarea(cols="30", rows="10", placeholder="Write a comment") 
+          button Add Comment
 
 //-      p=video.description
       small=video.createdAt
@@ -30,3 +35,4 @@ block content
       a(href=`${video.id}/delete`) Delete Video &rarr;
 block scripts 
   script(src="/static/js/videoPlayer.js")
+  script(src="/static/js/commentSection.js") 

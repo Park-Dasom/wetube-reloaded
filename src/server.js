@@ -7,6 +7,7 @@ import userRouter from "./routers/usersRouters.js";
 import videoRouter from "./routers/videoRouters.js";
 import apiRouter from "./routers/apiRouter.js";
 import { localsMiddleware } from "./middlewares.js";
+import flash from "express-flash";
 
 const app = express();
 
@@ -21,7 +22,7 @@ app.use((req, res, next) => {
 
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
-
+app.use(express.json());
 app.use(
   session({
     secret: process.env.COOKIE_SECRET,
@@ -30,6 +31,7 @@ app.use(
     store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
   })
 );
+app.use(flash());
 app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("assets"));
