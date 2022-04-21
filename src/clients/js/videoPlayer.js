@@ -48,7 +48,13 @@ const handleVolumeChange = (event) => {
   } = event;
   if (video.muted) {
     video.muted = false;
-    //muteBtn.innerText = "Mute";
+  }
+  if (value === "0") {
+    muteBtn.classList.remove("fa-volume-up");
+    muteBtn.classList.add("fa-volume-mute");
+  } else {
+    muteBtn.classList.remove("fa-volume-mute");
+    muteBtn.classList.add("fa-volume-up");
   }
   volume = value;
   video.volume = value;
@@ -132,5 +138,5 @@ fullScreenBtn.addEventListener("click", handleFullscreen);
 video.addEventListener("mousemove", handleMouseMove);
 video.addEventListener("mouseleave", handleMouseLeave);
 video.addEventListener("click", handlePlayClick);
-window.addEventListener("keydown", handleKeydown);
+//window.addEventListener("keydown", handleKeydown);
 video.addEventListener("ended", handleEnded);

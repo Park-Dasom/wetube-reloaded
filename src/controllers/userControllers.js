@@ -207,4 +207,23 @@ export const see = async (req, res) => {
   return res.render("profile", { pageTitle: user.name, user });
 };
 
-export const deleteUser = (req, res) => res.send("delete user");
+export const deleteUser = async (req, res) => {
+  const { user } = req.session;
+  const id = req.session.user._id;
+  const dbUser = await User.findById(id);
+  if (dbUser.videos) {
+    const videos = dbUser.videos;
+    videos.forEach(
+      async (element) => await Video.findByIdAndDelete(String(element))
+    );
+  }
+  if (dbUser.comments) {
+    const comments = dbUser.comments;
+    comments.forEach(
+      async (element) => await Comment.findByIdAndDelete(String(element))
+    );
+  }
+  await User.findByIdAndDelete(id);
+  req.session.destroy();
+  return res.redirect("/");
+};

@@ -1,5 +1,6 @@
 import Video from "../models/Video.js";
 import User from "../models/User.js";
+import Comment from "../models/Comment.js";
 
 export const home = async (req, res) => {
   const videos = await Video.find({})
@@ -10,7 +11,7 @@ export const home = async (req, res) => {
 
 export const watch = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id).populate("owner");
+  const video = await Video.findById(id).populate("owner").populate("comments");
   if (video) {
     console.log(video);
     return res.render("watch", { pageTitle: video.title, video });
@@ -63,7 +64,6 @@ export const postUpload = async (req, res) => {
   const { _id } = req.session.user;
   const { video, thumb } = req.files;
   const { title, description, hashtags } = req.body;
-  console.log(video, thumb);
   try {
     const newVideo = await Video.create({
       title,
@@ -111,7 +111,6 @@ export const search = async (req, res) => {
       },
     }).populate("owner");
   }
-  console.log(keyword);
   return res.render("search", { pageTitle: "Search", videos });
 };
 
@@ -126,9 +125,41 @@ export const registerView = async (req, res) => {
   return res.sendStatus(200);
 };
 
-export const createComment = (req, res) => {
-  console.log(req.params);
-  console.log(req.body);
-  console.log(req.body.text);
-  return res.end();
+export const createComment = async (req, res) => {
+  const {
+    session: { user },
+    body: { text },
+    params: { id },
+  } = req;
+  const dbUser = await User.findById(user._id);
+  if (!dbUser) {
+    res.sendStatus(404);
+  }
+  const video = await Video.findById(id);
+  if (!video) {
+    res.sendStatus(404);
+  }
+  const comment = await Comment.create({
+    text,
+    owner: user._id,
+    video: id,
+  });
+  video.comments.push(comment._id);
+  await video.save();
+  dbUser.comments.push(comment._id);
+  await dbUser.save();
+  return res.status(201).json({ newCommentId: comment._id });
+};
+
+export const deleteComment = async (req, res) => {
+  const {
+    session: { user },
+    params: { id },
+  } = req;
+  const comment = await Comment.findById(id);
+  if (String(user._id) !== String(comment.owner._id)) {
+    return res.sendStatus(404);
+  }
+  await Comment.findByIdAndDelete(id);
+  return res.sendStatus(201);
 };
