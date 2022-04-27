@@ -9,7 +9,6 @@ module.exports = {
     commentSection: "./src/clients/js/commentSection.js",
   },
   mode: "development",
-  watch: true,
   plugins: [new MiniCssExtractPlugin({ filename: "css/style.css" })],
   output: {
     filename: "js/[name].js",
