@@ -22,10 +22,11 @@ header
                         if loggedInUser.avatarUrl === ""
                             span 😃
                         else 
-                            if loggedInUse.avatarUrl.includes("github")
-                                img.header_avatar(src=loggedInUser.avatarUrl)
-                            else
-                                img.header_avatar(src="/" + loggedInUser.avatarUrl)
+                            if loggedInUser.avatarUrl
+                                if loggedInUse.avatarUrl.includes("github")
+                                    img.header_avatar(src=loggedInUser.avatarUrl)
+                                else
+                                    img.header_avatar(src=loggedInUser.avatarUrl)
                         
             else
                 li
